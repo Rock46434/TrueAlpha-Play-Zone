@@ -1,0 +1,4543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome TrueAlpha Play Zone - Your Gaming Destination</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0f1419;
+            color: #e0e0e0;
+            line-height: 1.6;
+                      </a>
+                        
+                        <a href="https://github.com/Succubussix/winlator-bionic-glibc/releases/tag/just-bionic" class="download-btn">
+                            <i class="fas fa-download"></i> Download Emulator 
+                        </a>            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.light-mode {
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        /* XP Progress Bar */
+        .xp-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1002;
+        }
+
+        .xp-progress {
+            height: 100%;
+            background: linear-gradient(90deg, 
+                #ff9a00, 
+                #ff6b00, 
+                #ff9a00);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Level Badge */
+        .level-badge {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1002;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background: linear-gradient(90deg, #0a0a0a, #1a1a1a);
+            color: #a29bfe;
+            border-radius: 10px;
+            box-shadow: 
+                0 5px 20px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(108, 92, 231, 0.3);
+            z-index: 1001;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(108, 92, 231, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        /* Particle Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Floating Game Icons */
+        .floating-icons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(108, 92, 231, 0.1);
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+            }
+        }
+
+        /* Enhanced Floating Controls */
+        .floating-controls {
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 25px;
+            border: 1px solid rgba(108, 92, 231, 0.3);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .control-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            border: 2px solid rgba(108, 92, 231, 0.5);
+            color: #6c5ce7;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .control-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(108, 92, 231, 0.2),
+                transparent
+            );
+            transition: left 0.5s;
+        }
+
+        .control-btn:hover::before {
+            left: 100%;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.15) rotate(5deg);
+            color: #a29bfe;
+            border-color: #a29bfe;
+            box-shadow: 
+                0 8px 25px rgba(108, 92, 231, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, #252525, #151515);
+        }
+
+        .control-btn.assistant {
+            background: linear-gradient(135deg, #ff9a00, #ff6b00);
+            color: white;
+        }
+
+        /* Game Assistant Panel */
+        .game-assistant {
+            position: fixed;
+            left: 20px;
+            bottom: 100px;
+            width: 300px;
+            background: linear-gradient(145deg, #0a0a0a, #1a1a1a);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.7),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 0 1px rgba(108, 92, 231, 0.2);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: none;
+            border: 1px solid rgba(108, 92, 231, 0.3);
+        }
+
+        .game-assistant.show {
+            display: block;
+            animation: slideInLeft 0.3s ease;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .assistant-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(108, 92, 231, 0.3);
+        }
+
+        .assistant-header h3 {
+            color: #6c5ce7;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .assistant-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .assistant-message {
+            background: rgba(15, 20, 25, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border-left: 3px solid #6c5ce7;
+        }
+
+        .recommendation-item {
+            background: rgba(26, 31, 46, 0.5);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 8px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(108, 92, 231, 0.1);
+        }
+
+        .recommendation-item:hover {
+            background: rgba(108, 92, 231, 0.15);
+            border-color: rgba(108, 92, 231, 0.3);
+            transform: translateX(5px);
+        }
+
+        .assistant-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .assistant-btn {
+            flex: 1;
+            padding: 8px;
+            border-radius: 5px;
+            background: rgba(108, 92, 231, 0.1);
+            border: 1px solid rgba(108, 92, 231, 0.3);
+            color: #a29bfe;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .assistant-btn:hover {
+            background: rgba(108, 92, 231, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Enhanced Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            border: 2px solid rgba(108, 92, 231, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c5ce7;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 999;
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            color: #a29bfe;
+            border-color: #a29bfe;
+            box-shadow: 
+                0 10px 25px rgba(108, 92, 231, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        /* Typing Effect */
+        .typing-effect {
+            display: inline-block;
+            border-right: 2px solid #6c5ce7;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3.5s steps(40, end), blink 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: #6c5ce7 }
+        }
+
+        /* Enhanced Animations for Existing Elements */
+        .game-card {
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h2 {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(108, 92, 231, 0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(108, 92, 231, 0.8), 0 0 30px rgba(108, 92, 231, 0.6);
+            }
+        }
+
+        /* Enhanced Shiny Black Game Cards */
+        .game-card {
+            background: linear-gradient(145deg, #0a0a0a, #1a1a1a);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 0 1px rgba(108, 92, 231, 0.1);
+            position: relative;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(108, 92, 231, 0.4), 
+                rgba(255, 255, 255, 0.6), 
+                rgba(108, 92, 231, 0.4), 
+                transparent);
+            z-index: 2;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 15px 30px rgba(108, 92, 231, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 0 0 1px rgba(108, 92, 231, 0.3);
+            background: linear-gradient(145deg, #0d0d0d, #202020);
+        }
+
+        /* Light mode shiny cards */
+        body.light-mode .game-card {
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            box-shadow: 
+                0 5px 20px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9),
+                0 0 0 1px rgba(108, 92, 231, 0.1);
+        }
+
+        body.light-mode .game-card:hover {
+            background: linear-gradient(145deg, #ffffff, #f8f8f8);
+            box-shadow: 
+                0 15px 35px rgba(108, 92, 231, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9),
+                0 0 0 1px rgba(108, 92, 231, 0.2);
+        }
+
+        .game-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+
+        .badge-free {
+            background: linear-gradient(90deg, #00b894, #00a085);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 184, 148, 0.4);
+        }
+
+        .badge-premium {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #FF5733; /* Orange-Red color for premium */
+            color: white;
+            padding: 5px 10px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            text-transform: uppercase;
+        }
+
+        .badge-collection {
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+            color: white;
+            box-shadow: 0 4px 10px rgba(108, 92, 231, 0.4);
+        }
+       
+        .game-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            position: relative;
+        }
+
+        .game-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(transparent, #1a1f2e);
+        }
+
+        .game-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            min-height: 280px;
+        }
+
+        .game-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        body.light-mode .game-title {
+            color: #333;
+        }
+
+        .game-description {
+            color: #b0b0b0;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            flex-grow: 1;
+            min-height: 60px;
+        }
+
+        body.light-mode .game-description {
+            color: #666;
+        }
+
+        .game-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #8a8fa3;
+        }
+
+        .game-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .game-rating i {
+            color: #ff9a00;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+            color: white;
+            padding: 0.8rem 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            word-wrap: break-word;
+        }
+
+        .download-btn:hover {
+            background: linear-gradient(90deg, #5b4bc4, #8a7ff0);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .download-buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+
+        /* Light Mode Styles */
+        body.light-mode .search-container,
+        body.light-mode .about-text,
+        body.light-mode .team-member {
+            background-color: #ffffff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .search-input {
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        /* WhatsApp Direct Link Generator Styles */
+        .direct-link-section {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .direct-link-section .search-container {
+            background-color: #1a1f2e;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s;
+        }
+
+        body.light-mode .direct-link-section .search-container {
+            background-color: #ffffff;
+        }
+
+        .direct-link-section h2 {
+            color: #25D366;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .link-generator {
+            background: rgba(37, 211, 102, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            margin-bottom: 1.5rem;
+        }
+
+        .link-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .link-controls {
+                flex-direction: column;
+            }
+        }
+
+        #game-selector {
+            flex: 1;
+            padding: 0.8rem;
+            border-radius: 5px;
+            background: #0f1419;
+            color: #e0e0e0;
+            border: 1px solid #2d3447;
+            font-size: 1rem;
+        }
+
+        body.light-mode #game-selector {
+            background: #f0f2f5;
+            color: #333;
+        }
+
+        #generate-link {
+            background: linear-gradient(90deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        #generated-link-container {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        #generated-link {
+            flex: 1;
+            padding: 0.8rem;
+            background: #0f1419;
+            border: 1px solid #2d3447;
+            border-radius: 5px;
+            color: #e0e0e0;
+            font-size: 0.9rem;
+        }
+
+        body.light-mode #generated-link {
+            background: #f0f2f5;
+            color: #333;
+        }
+
+        #copy-link, #share-whatsapp {
+            background: #6c5ce7;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        #share-whatsapp {
+            background: #25D366;
+        }
+
+        #copy-link:hover {
+            background: #5b4bc4;
+        }
+
+        #share-whatsapp:hover {
+            background: #128C7E;
+        }
+
+        #whatsapp-message-preview {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(26, 31, 46, 0.7);
+            border-radius: 5px;
+            display: none;
+        }
+
+        body.light-mode #whatsapp-message-preview {
+            background: rgba(240, 242, 245, 0.7);
+        }
+
+        #message-content {
+            background: white;
+            color: #333;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: 'Segoe UI', sans-serif;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* WhatsApp Icon */
+        .whatsapp-icon {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
+            animation: shake 2s infinite;
+            border: 3px solid white;
+            text-decoration: none;
+        }
+
+        @keyframes shake {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            5% { transform: translateY(-50%) rotate(-5deg); }
+            10% { transform: translateY(-50%) rotate(5deg); }
+            15% { transform: translateY(-50%) rotate(-5deg); }
+            20% { transform: translateY(-50%) rotate(5deg); }
+            25% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(0deg); }
+        }
+
+        .whatsapp-icon:hover {
+            animation: none;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.7);
+        }
+
+        /* All Games Collection Styles - REMOVED */
+
+        /* Existing styles below... */
+        /* Header Styles */
+        header {
+            background-color: #1a1f2e;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: background-color 0.3s;
+        }
+
+        body.light-mode header {
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: #6c5ce7;
+            font-size: 2rem;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        body.light-mode nav a {
+            color: #333;
+        }
+
+        nav a:hover {
+            color: #6c5ce7;
+            background-color: rgba(108, 92, 231, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(15, 20, 25, 0.8), rgba(15, 20, 25, 0.9)), 
+                        url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #b0b0b0;
+        }
+
+        body.light-mode .hero p {
+            color: #666;
+        }
+
+        /* Trending Games Slider */
+        .trending-section {
+            background: linear-gradient(90deg, #1a1f2e, #2d3447);
+            padding: 2.5rem 0;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 0;
+            border-radius: 0;
+            border-bottom: 3px solid #6c5ce7;
+            transition: background 0.3s;
+        }
+
+        body.light-mode .trending-section {
+            background: linear-gradient(90deg, #e3e6f0, #d5d9e7);
+        }
+
+        .trending-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .trending-header h2 {
+            font-size: 2.2rem;
+            background: linear-gradient(90deg, #ff9a00, #ff6b00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            text-shadow: 0 2px 10px rgba(255, 107, 0, 0.3);
+        }
+
+        .trending-slider {
+            display: flex;
+            animation: slide 25s linear infinite;
+            gap: 2.5rem;
+            padding: 0 2rem;
+        }
+
+        .trending-slider:hover {
+            animation-play-state: paused;
+        }
+
+        .trending-item {
+            flex: 0 0 auto;
+            background: rgba(26, 31, 46, 0.9);
+            border-radius: 12px;
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            min-width: 350px;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid rgba(108, 92, 231, 0.4);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        body.light-mode .trending-item {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .trending-item:hover {
+            transform: translateY(-8px);
+            background: rgba(108, 92, 231, 0.15);
+            box-shadow: 0 15px 30px rgba(108, 92, 231, 0.3);
+            border-color: rgba(108, 92, 231, 0.7);
+        }
+
+        .trending-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .trending-info h4 {
+            color: #fff;
+            margin-bottom: 0.4rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        body.light-mode .trending-info h4 {
+            color: #333;
+        }
+
+        .trending-info p {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+        }
+
+        body.light-mode .trending-info p {
+            color: #666;
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Search Section */
+        .search-section {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .search-container {
+            background-color: #1a1f2e;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s;
+        }
+
+        .search-container h2 {
+            color: #6c5ce7;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+        }
+
+        .search-input {
+            flex: 1;
+            max-width: 400px;
+            padding: 0.8rem 1rem;
+            border-radius: 5px;
+            border: 1px solid #2d3447;
+            background-color: #0f1419;
+            color: #e0e0e0;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #6c5ce7;
+        }
+
+        .search-btn {
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-btn:hover {
+            background: linear-gradient(90deg, #5b4bc4, #8a7ff0);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .whatsapp-info {
+            background: linear-gradient(90deg, #25D366, #128C7E);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+            position: relative;
+        }
+
+        .whatsapp-info h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .whatsapp-info p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .whatsapp-link {
+            display: inline-block;
+            background: white;
+            color: #25D366;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .whatsapp-link:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        /* Games Section */
+        .games-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: #e0e0e0;
+        }
+
+        body.light-mode .section-title {
+            color: #333;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            background-color: #2d3447;
+            color: #e0e0e0;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        body.light-mode .filter-btn {
+            background-color: #e3e6f0;
+            color: #333;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+            color: white;
+        }
+
+        .filter-btn:hover:not(.active) {
+            background-color: #3a4157;
+        }
+
+        body.light-mode .filter-btn:hover:not(.active) {
+            background-color: #d5d9e7;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        /* About Us Page */
+        .about-page {
+            display: none;
+            padding: 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .about-page h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #e0e0e0;
+        }
+
+        body.light-mode .about-page h2 {
+            color: #333;
+        }
+
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .about-text {
+            background-color: #1a1f2e;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .about-text h3 {
+            color: #6c5ce7;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .team-member {
+            background-color: #1a1f2e;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .team-member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 3px solid #6c5ce7;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background-color: #6c5ce7;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 2rem;
+        }
+
+        .back-btn:hover {
+            background-color: #5b4bc4;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #1a1f2e;
+            padding: 3rem 2rem 1.5rem;
+            margin-top: 4rem;
+            transition: background-color 0.3s;
+        }
+
+        body.light-mode footer {
+            background-color: #ffffff;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #2d3447;
+            border-radius: 50%;
+            color: #e0e0e0;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        body.light-mode .social-links a {
+            background-color: #e3e6f0;
+            color: #333;
+        }
+
+        .social-links a:hover {
+            background-color: #6c5ce7;
+            transform: translateY(-5px);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        body.light-mode .footer-links a {
+            color: #666;
+        }
+
+        .footer-links a:hover {
+            color: #6c5ce7;
+        }
+
+        .help-note {
+            background: linear-gradient(90deg, #ff9a00, #ff6b00);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 1rem 0;
+            font-weight: 600;
+            max-width: 800px;
+        }
+
+        .copyright {
+            color: #777;
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        body.light-mode .copyright {
+            color: #999;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-members {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-buttons {
+                flex-wrap: wrap;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-input {
+                max-width: 100%;
+            }
+
+            .trending-item {
+                min-width: 280px;
+                padding: 1rem;
+            }
+
+            .trending-item img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .trending-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .game-assistant {
+                width: calc(100% - 40px);
+                left: 20px;
+                right: 20px;
+            }
+            
+            .floating-controls {
+                flex-direction: row;
+                bottom: 20px;
+                right: 50%;
+                transform: translateX(50%);
+                border-radius: 30px;
+                padding: 10px 20px;
+            }
+
+            .whatsapp-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                right: 15px;
+            }
+
+            .download-btn {
+                font-size: 0.8rem;
+                padding: 0.7rem 0.5rem;
+            }
+            
+            .game-info {
+                min-height: 250px;
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- WhatsApp Icon -->
+    <a href="https://whatsapp.com/channel/0029VbBWNXqFcovycqk4WG2F" class="whatsapp-icon" target="_blank" title="Join Our WhatsApp Channel">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- XP Progress Bar -->
+    <div class="xp-bar">
+        <div class="xp-progress" id="xp-progress"></div>
+    </div>
+    
+    <!-- Level Badge -->
+    <div class="level-badge">
+        <i class="fas fa-trophy"></i>
+        <span id="level-text">Level 2</span>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        Welcome to TrueAlpha Play Zone! 🎮
+    </div>
+
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+
+    <!-- Floating Game Icons -->
+    <div class="floating-icons" id="floating-icons"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-gamepad"></i>
+                <h1 class="typing-effect">TrueAlpha Play Zone</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" id="home-link">Home</a></li>
+                    <li><a href="#" id="about-link">About</a></li>
+                    <li><a href="#games-section">Games</a></li>
+                    <li><a href="tel:0651675994">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Discover Amazing Games On TrueAlpha Play Zone</h2>
+            <p>Download and play the latest trending games for free. Join our community of gamers today!</p>
+        </div>
+    </section>
+
+    <!-- Trending Games Slider -->
+    <section class="trending-section">
+        <div class="trending-header">
+            <h2><i class="fas fa-fire"></i> TRENDING GAMES</h2>
+        </div>
+        <div class="trending-slider">
+            <div class="trending-item" data-game="GTA V Mod San Andreas">
+                <img src="Grand_Theft_Auto V.jpg" alt="GTA V">
+                <div class="trending-info">
+                    <h4>GTA V Mod San Andreas</h4>
+                    <p>Open world adventure</p>
+                </div>
+            </div>
+            <div class="trending-item" data-game="DFL">
+                <img src="DFL.jpg" alt="DFL">
+                <div class="trending-info">
+                    <h4>DFL Football</h4>
+                    <p>Realistic football experience</p>
+                </div>
+            </div>
+            <div class="trending-item" data-game="UFL">
+                <img src="UFL.jpg" alt="UFL">
+                <div class="trending-info">
+                    <h4>UFL</h4>
+                    <p>Best football game ever</p>
+                </div>
+            </div>
+            <div class="trending-item" data-game="Call Of Duty">
+                <img src="call of duty .jpg" alt="Call of Duty">
+                <div class="trending-info">
+                    <h4>Call Of Duty</h4>
+                    <p>High quality challenge</p>
+                </div>
+            </div>
+            <div class="trending-item" data-game="Bright Memory">
+                <img src="bright memory .jpg" alt="Bright Memory">
+                <div class="trending-info">
+                    <h4>Bright Memory</h4>
+                    <p>Adventure challenges</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="search-container">
+            <h2><i class="fas fa-search"></i> Find Your Game</h2>
+            <div class="search-box">
+                <input type="text" class="search-input" id="game-search" placeholder="Search for games...">
+                <button class="search-btn" id="search-button">Search</button>
+            </div>
+            <div class="whatsapp-info">
+                <h3><i class="fab fa-whatsapp"></i> WhatsApp Channel Integration</h3>
+                <p>Share game links directly from our WhatsApp channel!</p>
+                <p>When you post a game name in your WhatsApp channel with our website name and game picture, users can tap to go directly to the game.</p>
+                <a href="https://whatsapp.com/channel/0029VbBWNXqFcovycqk4WG2F" class="whatsapp-link" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Join Our WhatsApp Channel
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Direct Link Generator -->
+    <section class="direct-link-section">
+        <div class="search-container">
+            <h2><i class="fab fa-whatsapp"></i> Generate WhatsApp Direct Game Links</h2>
+            <p style="color: #b0b0b0; margin-bottom: 1.5rem;">
+                Generate links that go directly to specific games. Perfect for sharing in WhatsApp!
+            </p>
+            
+            <div class="link-generator">
+                <div class="link-controls">
+                    <select id="game-selector">
+                        <option value="">Select a game...</option>
+                        <option value="GTA V Mod San Andreas">GTA V Mod San Andreas</option>
+                        <option value="GTA San Andreas">GTA San Andreas</option>
+                        <option value="DFL">DFL</option>
+                        <option value="Bright Memory">Bright Memory</option>
+                        <option value="UFL">UFL</option>
+                        <option value="Call Of Duty">Call Of Duty</option>
+                        <option value="Maleo Mod Tz">Maleo Mod TZ</option>
+                        <option value="Tomb rider">Tomb Rider</option>
+                        <option value="God of war">God of War</option>
+                        <option value="Spiderman">Spiderman 3 PSP</option>
+                        <option value="FC26 PSP">FC26 PSP</option>
+                        <option value="FC26 MOD">FIFA 26 MOD 14 APK</option>
+                        <option value="Carnage Wars">Carnage Wars</option>
+                        <option value="Red Dead Redemption">Red Dead Redemption</option>
+                        <option value="Efootball 2026">Efootball 2026 Psp</option>
+                        <option value="Wild Blood">Wild Blood</option>
+                        <option value="Watch Dogs">Watch Dogs</option>
+                        <option value="UNBROKEN:Survival ">UNBROKEN:Survival</option>
+                        <option value="DLS 26 ">DLS 26</option>
+                        <option value="Fire-Apocalypse-zombie">Fire-Apocalypse-zombie</option>
+                        <option value="DLS 2026 MOD 19 Apk">DLS 2026 MOD 19 Apk</option>
+                        <option value="Call of duty black ops ">Call of duty black ops</option>
+                        <option value="Blur">Blur</option>
+                        <option value="Downhill Domination ">Downhill Domination</option>
+                        <option value="FIFA Orginal">FIFA Orginal</option>
+                        <option value="WWE">WWE</option>
+                        <option value="GRAND THEFT AUTO 5 MOBILE LITE">GRAND THEFT AUTO 5 MOBILE LITE</option>
+                        <option value="FIFA 16 MOD EFOOTBALL">FIFA 16 MOD EFOOTBALL</option>
+                        <option value="FIFA 16 MOD EFOOTBALL 2026 ">FIFA 16 MOD EFOOTBALL 2026</option>
+                        <option value="DLS 2026(UNLIMITED MONEY ) ">DLS 2026(UNLIMITED MONEY)</option>
+                        <option value="GRAND THEFT AUTO V.3.1">GRAND THEFT AUTO V.3.1</option>
+                        <option value="FIFA 16 MOD EAFC26">FIFA 16 MOD EAFC26</option>
+                        <option value="FIFA 16 MOD FIFA 25(UFL)">FIFA 16 MOD FIFA 25(UFL)</option>
+                        <option value="FC26 OFFLINE GAME ">FC26 OFFLINE GAME</option>
+                        <option value="MORTAL KOMBAT(AETHERSX2)EMULATOR">MORTAL KOMBAT(AETHERSX2)EMULATOR</option>
+                        <option value="MK(MORTAL KOMBAT)PSP">MK(MORTAL KOMBAT)PSP</option>
+                        <option value="FTS 26 ">FTS 26</option>
+                        <option value="Prince Of Persia ">Prince Of Persia</option>
+                        <option value="NEED FOR SPEED ">NEED FOR SPEED</option>
+                        <option value="GTA IV ">GTA IV</option>
+                        <option value="FC26 MOD 2016">FC26 MOD 2016</option>
+                        <option value="Call Of Duty:Strike Team">Call Of Duty:Strike Team</option>
+                        <option value="Once a Human">Once a Human</option>
+                        <option value="battleops ">battleops</option>
+                        <option value="EFOOTBALL 2026">EFOOTBALL 2026</option>
+                        <option value="FIFA 2025 MOD 14">FIFA 2025 MOD 14</option>
+                        <option value="RALLY RACING PRO">RALLY RACING PRO</option>
+                        <option value="RACE MAX PRO">RACE MAX PRO</option>
+                        <option value="BATMAN">BATMAN</option>
+                        <option value="SPIDERMAN">SPIDERMAN</option>
+                        <option value="RESIDENT EVIL MOD APK">RESIDENT EVIL MOD APK</option>
+                        <option value="DEAD EFFECT">DEAD EFFECT</option>
+                        <option value="Hitman Sniper">Hitman Sniper</option>
+                        <option value="Truck Simulator">Truck Simulator</option>
+                        <option value="WWE PATCH 2026 PSP">WWE PATCH 2026 PSP</option>
+                        <option value="GTA V MOD 2">GTA V MOD 2</option>
+                        <option value="Fc26">Fc26</option>
+                        <option value="UFL MOBILE">UFL MOBILE</option>
+                        <option value="Takashi">Takashi</option>
+                        <option value="Call of duty: warzone">Call of duty: warzone</option>
+                        <option value="Minecraft">Minecraft</option>
+                        <option value="Real Driving">Real Driving</option>
+                        <option value="Drive Real Truck Simulator">Drive Real Truck Simulator</option>
+                        <option value="Truck Simulator Usa Revolution">Truck Simulator Usa Revolution</option>
+                        <option value="TDZ Pro">TDZ Pro</option>
+                        <option value="GOD HAND">GOD HAND</option>
+                        <option value="Dead Effect 2">Dead Effect 2</option>
+                        <option value="Silent Hill 3">Silent Hill 3</option>
+                        <option value="Black Mamba Wukong">Black Mamba Wukong</option>
+                        <option value="Mad Max">Mad Max</option>
+                        <option value="GTA V">GTA V</option>
+                        <option value="ETS2 TANZANIA MOD FOR PC">ETS2 TANZANIA MOD FOR PC</option>
+                        <option value="Dead Or Alive Paradise Europe">Dead Or Alive Paradise Europe</option>
+                        <option value="Efootball Pes Tz 2026">Efootball Pes Tz 2026</option>
+                        <option value="ETS2 MALEO TZ MOD v3.7.1">ETS2 MALEO TZ MOD v3.7.1</option>
+                        <option value="BUS MALEO TZ MOD v4.3.2">BUS MALEO TZ MOD v4.3.2</option>
+                        <option value="BUS MALEO TZ MOD v4.3.3">BUS MALEO TZ MOD v4.3.3</option>
+                        <option value="BUS MALEO TZ MOD v4.3.4">BUS MALEO TZ MOD v4.3.4</option>
+                        <option value="World Bus Tz Mod">World Bus Tz Mod</option>
+                        <option value="AetherSX2 PS2 Emulator">AetherSX2 PS2 Emulator</option>
+                        <option value="MotoGP">MotoGP</option>
+                        <option value="Football Manager">Football Manager</option>
+                        <option value="Truckers Of Europe 3">Truckers Of Europe 3</option>
+                        <option value="PPSSPP GOLD">PPSSPP GOLD</option>
+                        <option value="Winning Eleven">Winning Eleven</option>
+                        <option value="Left To Survive">Left To Survive</option>
+                        <option value="Car Parking Multiplayer">Car Parking Multiplayer</option>
+                        <option value="SpiderMan 2">SpiderMan 2</option>
+                        <option value="Pes 2018">Pes 2018</option>
+                    </select>
+                    <button id="generate-link">
+                        Generate Link
+                    </button>
+                </div>
+                
+                <div id="generated-link-container">
+                    <p style="color: #b0b0b0; margin-bottom: 0.5rem;">Your direct game link:</p>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <input type="text" id="generated-link" readonly>
+                        <button id="copy-link">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                        <button id="share-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Share
+                        </button>
+                    </div>
+                    
+                    <div id="whatsapp-message-preview">
+                        <h4 style="color: #25D366; margin-bottom: 0.5rem;">WhatsApp Message Preview:</h4>
+                        <div id="message-content">
+                            <!-- Preview will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section class="games-section" id="games-section">
+        <h2 class="section-title">Games</h2>
+        
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All Games</button>
+            <button class="filter-btn" data-filter="free">Free Games</button>
+            <button class="filter-btn" data-filter="premium">Premium Games</button>
+        </div>
+        
+        <div class="games-grid">
+            <!-- Game Card 1 - premium -->
+            <div class="game-card" data-category="premium" data-game="GTA San Andreas">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="Gta San Andreas .jpeg" alt="GTA San Andreas" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">GTA San Andreas</h3>
+                    <p class="game-description">The best open world game of all time.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.7</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments1.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card 2 - premium -->
+            <div class="game-card" data-category="premium" data-game="DFL">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="DFL.jpg" alt="DFL" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">DFL</h3>
+                    <p class="game-description">Football game with realistic players and kits with high graphics and challenges.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.5</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments2.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card 3 - Premium -->
+            <div class="game-card" data-category="premium" data-game="Bright Memory">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="bright memory .jpg" alt="Bright Memory" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Bright Memory</h3>
+                    <p class="game-description">Adventure, Challenges. Fight to save the world.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments3.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card 4 - Free -->
+            <div class="game-card" data-category="premium" data-game="UFL">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="UFL.jpg" alt="UFL" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">UFL</h3>
+                    <p class="game-description">The best football game ever with high graphics.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.4</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments4.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card 5 - Free -->
+            <div class="game-card" data-category="premium" data-game="Call Of Duty">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="call of duty .jpg" alt="Call of Duty" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Call Of Duty</h3>
+                    <p class="game-description">Good challenge and high quality game.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments5.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Game Card 6 - Free -->
+            <div class="game-card" data-category="premium" data-game="Maleo Mod Tz">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="Maleo .jpg" alt="Maleo mod tz" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Maleo Mod TZ</h3>
+                    <p class="game-description">Bus mod with Tz traffic and map with high quality.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments6.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card 7 - Free -->
+            <div class="game-card" data-category="premium" data-game="Tomb rider">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="tomb rider .jpeg" alt="Tomb raider" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Tomb rider</h3>
+                    <p class="game-description">The best adventure, action game of all time.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments7.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card 8 - Free -->
+            <div class="game-card" data-category="premium" data-game="God of war">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="God of war .jpeg" alt="God Of War" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">God of war</h3>
+                    <p class="game-description">God of war ghost of sparta good game with high quality.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments8.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+                    
+            <!-- Game Card 9 - Free -->
+            <div class="game-card" data-category="premium" data-game="Spiderman 3 PSP">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="Spiderman .jpg" alt="Spiderman" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Spiderman 3 PSP</h3>
+                    <p class="game-description">Spider man the best open world game of all time.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments9.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Game Card 10 - Free -->
+            <div class="game-card" data-category="free" data-game="FC26 PSP">
+                <div class="game-badge badge-free">Free</div>
+                <img src="FC 26.jpg" alt="FC26" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">FC26 PSP</h3>
+                    <p class="game-description">Football game with realistic players and kits with u graphics and challenges.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.5</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.mediafire.com/file/b28wxpq0v0wvgwv/BETEGAMING_EA_FC_26_PSP_ISO.rar/file?dkey=96xi9k92rrq&r=1637" class="download-btn">
+                            <i class="fas fa-download"></i> Download Game File
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/urpvd4wrat7jtb5/EA_FC_26_TEXTURES_%252B_SAVEDATA_BETEGAMING.rar/file?dkey=1yigpank1k8&r=311" class="download-btn">
+                            <i class="fas fa-download"></i> Download TEXTURE & SAVEDATA
+                        </a>
+                    </div>
+                </div>
+            </div>
+                         
+            <!-- Game Card 11 - Free -->
+            <div class="game-card" data-category="free" data-game="FC26 MOD">
+                <div class="game-badge badge-free">Free</div>
+                <img src="FC mobile .jpg" alt="FC" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">FIFA 26 MOD 14 APK</h3>
+                    <p class="game-description">Football game with realistic players and kits with high graphics and challenges.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.5</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.mediafire.com/file/lpebs6fvcxu0t3o/EA+FC+MOD+26+BY+ZEOL.apk/file?dkey=nfuqi21t5my&r=1541" class="download-btn">
+                            <i class="fas fa-download"></i> Download Apk
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/hoi41hkopi3bela/data.rar/file?dkey=ya71q54ucso&r=889" class="download-btn">
+                            <i class="fas fa-download"></i> Download Data
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/cyqmrxukdb0xw85/obb.rar/file?dkey=q70zjgb43ab&r=1466" class="download-btn">
+                            <i class="fas fa-download"></i> Download Obb 
+                        </a>
+                    </div>
+                </div>
+            </div> 
+            
+            <!-- Game Card 12 - Free -->
+            <div class="game-card" data-category="free" data-game="Carnage Wars">
+                <div class="game-badge badge-free">Free</div>
+                <img src="Carnage wars .png" alt="Carnage Wars" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Carnage Wars</h3>
+                    <p class="game-description">The best open world game of all time.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.7</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://play.google.com/store/apps/details?id=com.ziczac.shooter&hl=en&referrer=utm_source%3Dgoogle%26utm_medium%3Dorganic%26utm_term%3Dcarnage%2Bwars%2Bplaystore%2Bgame%2Blink&pcampaignid=APPU_1_f0QraaSYHLm9ptQPqqGlCQ" class="download-btn">
+                            <i class="fas fa-download"></i> Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game Card 13 - Premium -->
+            <div class="game-card" data-category="premium" data-game="Red Dead Redemption">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="Red dead redemption .jpg" alt="Red Dead Redemption" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">RED DEAD REDEMPTION</h3>
+                    <p class="game-description">The best open world game of all time.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.8</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments10.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game Card: European front -->
+            <div class="game-card" data-category="free" data-game="European front">
+                <div class="game-badge badge-free">Free</div>
+                <img src="Chanyo .jpg" alt="European front" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">European front</h3>
+                    <p class="game-description">Action game</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.mediafire.com/file/jzcbzet1panbvzx/EUROPE_FRONT_REMASTERED_1.0.2_MOD_BY_RADJA_GAMERZ.zip/file" class="download-btn">
+                            <i class="fas fa-download"></i> Download Main Game
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game Card: Unbroken:Survival -->
+            <div class="game-card" data-category="premium" data-game="Unbroken:Survival">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="unbroken .jpeg" alt="Unbroken:Survival" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">UNBROKEN:Survival</h3>
+                    <p class="game-description">Action game</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <<div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments11.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+                
+            <!-- Game Card: Efootball psp -->
+            <div class="game-card" data-category="free" data-game="Efootball psp">
+                <div class="game-badge badge-free">Free</div>
+                <img src="Efootball 2026 .jpg" alt="Efootball 2026" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Efootball 2026 Psp</h3>
+                    <p class="game-description">Beautiful game with high graphics and challenges.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.mediafire.com/file/1xs68fp4tkikoxm/eFootball_-_2026_PSP_-_SAN_JOE_WC.iso/file" class="download-btn">
+                            <i class="fas fa-download"></i> Download iSO
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/fsy5nia4xld4ua3/SHADERS.zip/file?dkey=2cdy58jsgbi&r=376" class="download-btn">
+                            <i class="fas fa-download"></i> Download SHERDERS
+                        </a>
+                        
+                        <a href="https://an1.com/file_4294-dw.html" class="download-btn">
+                            <i class="fas fa-download"></i> Download PSP Emulator 
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game Card: Wild Blood -->
+            <div class="game-card" data-category="free" data-game="Wild Blood">
+                <div class="game-badge badge-free">Free</div>
+                <img src="wild blood .jpeg" alt="Wild Blood" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Wild Blood</h3>
+                    <p class="game-description">Brutal fighting game with legendary characters and fatalities.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.8</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://dl.apkvision.org/wild-blood/Wild-Blood-v1.1.5.apk" class="download-btn">
+                            <i class="fas fa-download"></i> Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: Watch Dogs -->
+            <div class="game-card" data-category="premium" data-game="Watch Dogs">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="watch dogs .jpeg" alt="Watch Dogs" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Watch Dogs</h3>
+                    <p class="game-description">Open-world hacking adventure game.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments12.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: Fire-Apocalypse-zombie -->
+            <div class="game-card" data-category="premium" data-game="Fire-Apocalypse-zombie">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="Fire .jpeg" alt="Fire-Apocalypse-zombie" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Fire-Apocalypse-zombie</h3>
+                    <p class="game-description">Survival game in a zombie apocalypse world.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.7</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments13.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game Card: WWE -->
+            <div class="game-card" data-category="premium" data-game="WWE">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="wwe.jpeg" alt="wwe" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">WWE</h3>
+                    <p class="game-description">Action game.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments14.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: DLS 2026 MOD 19 Apk -->
+            <div class="game-card" data-category="free" data-game="DLS 2026 MOD 19 Apk">
+                <div class="game-badge badge-free">Free</div>
+                <img src="dls .jpeg" alt="DLS 2026 Hacked" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">DLS 2026 MOD 19 Apk</h3>
+                    <p class="game-description">Football game.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://happymod.to/dream-league-soccer-2020-app-mod/com.firsttouchgames.dls7/download.html" class="download-btn">
+                            <i class="fas fa-download"></i> Download Apk
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: Call of duty black ops -->
+            <div class="game-card" data-category="premium" data-game="Call of duty black ops">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="call of duty black ops .jpg" alt="Call of duty black ops" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Call of duty black ops</h3>
+                    <p class="game-description">Battle royale game with building mechanics, unique skins, and seasonal updates.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments15.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: Blur -->
+            <div class="game-card" data-category="premium" data-game="Blur">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="brul.jpg" alt="brul" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Blur</h3>
+                    <p class="game-description">RACING.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 6,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments16.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: Downhill Domination-->
+            <div class="game-card" data-category="premium" data-game="Downhill Domination">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="Downhill_Domination_Coverart.png" alt="Downhill Domination" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Downhill Domination</h3>
+                    <p class="game-description">Racing.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments17.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now 
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: FIFA Original -->
+            <div class="game-card" data-category="free" data-game="FIFA Original">
+                <div class="game-badge badge-free">Free</div>
+                <img src="FIFA_16_cover.jpg" alt="FIFA Original" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">FIFA Original</h3>
+                    <p class="game-description">Football</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.mediafire.com/file/ebdowesg1vfptam/NEW_APK_BY_MPROGAMING.COM.zip/file" class="download-btn">
+                            <i class="fas fa-download"></i> Download Apk
+                        </a>
+                        
+                        <a href="https://modsfire.com/download/01PrwKBnSP670R3/cb4e9" class="download-btn">
+                            <i class="fas fa-download"></i> Download Data
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/ycxkoqne89x35zh/FIFA_16_OBB_BY_ALPHATRIX_GAMING.zip/file?dkey=s4grco7xfky&r=1729" class="download-btn">
+                            <i class="fas fa-download"></i> Download OBB
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/j9dkph9cbfv68qr/FIFA_16_ENGLISH_COMMENTARY_BY_M_PRO_GAMING.zip/file?dkey=g3bu59n596f&r=1307" class="download-btn">
+                            <i class="fas fa-download"></i> Download Commentary 
+                        </a>
+                        
+                        <a href="https://gamebola16.netlify.app/index.html" class="download-btn">
+                            <i class="fas fa-download"></i> Download Career Saver
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: GRAND THEFT AUTO 5 MOBILE LITE -->
+            <div class="game-card" data-category="premium" data-game="GRAND THEFT AUTO 5 MOBILE LITE">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="Mod.jpg" alt="GRAND THEFT AUTO 5 MOBILE LITE" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">GRAND THEFT AUTO MOBILE LITE</h3>
+                    <p class="game-description">Open world.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments18.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: PES 2018 -->
+            <div class="game-card" data-category="free" data-game="Pes 2018">
+                <div class="game-badge badge-free">Free</div>
+                <img src="Pes 2018.jpg" alt="Pes 2018" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Pes 2018</h3>
+                    <p class="game-description">Delivers realistic football with smooth gameplay, updated teams, and stunning visuals.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.mediafire.com/download/fsf1wxistba971d" class="download-btn">
+                            <i class="fas fa-download"></i> Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: SPIDERMAN 2 -->
+            <div class="game-card" data-category="free" data-game="SpiderMan 2">
+                <div class="game-badge badge-free">Free</div>
+                <img src="SpiderMan 2.jpg" alt="SpiderMan 2" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Spider Man 2</h3>
+                    <p class="game-description">Swing through New York as Spider-Man, battling villains in an action-packed adventure.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://apkadmin.com/vxzapcp5lue2/Spider_MaN_2_Mod_-_RisTechy.com.apk.html" class="download-btn">
+                            <i class="fas fa-download"></i> Download APK
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/04eqg7wh64a099x/Obb_Amazing_Spider_Man_2_-_RisTechy.com.rar/file" class="download-btn">
+                            <i class="fas fa-download"></i> Download OBB
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: CAR PARKING MULTIPLAYER -->
+            <div class="game-card" data-category="free" data-game="Car Parking Multiplayer">
+                <div class="game-badge badge-free">Free</div>
+                <img src="Car Parking Multiplayer.jpg" alt="Car Parking Multiplayer" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Car Parking Multiplayer</h3>
+                    <p class="game-description">Park cars and compete in multiplayer challenges in an open-world simulator.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.mediafire.com/file/3i8e4dmbz5gttqb/Car-parking-Multiplayer-Mod-4.9.8.4-RisTechy.com.apk/file?dkey=6gs7jnkobzn&r=606" class="download-btn">
+                            <i class="fas fa-download"></i> Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: LEFT TO SURVIVE -->
+            <div class="game-card" data-category="free" data-game="Left To Survive">
+                <div class="game-badge badge-free">Free</div>
+                <img src="Left To Survive.jpg" alt="Left To Survive" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Left To Survive</h3>
+                    <p class="game-description">Survive the zombie apocalypse in this intense action game with thrilling combat and strategy.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://files.modyolo.com/Left%20to%20Survive/Left_to_Survive_%20v8.1.0.xapk" class="download-btn">
+                            <i class="fas fa-download"></i> Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: WINNING ELEVEN -->
+            <div class="game-card" data-category="free" data-game="Winning Eleven">
+                <div class="game-badge badge-free">Free</div>
+                <img src="Winning Eleven.jpg" alt="Winning Eleven" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Winning Eleven</h3>
+                    <p class="game-description">Experience fast-paced football action with Winning Eleven, featuring realistic gameplay and iconic teams.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.mediafire.com/file/kn9s4h160pn3swe/Winning_Eleven_Mod_25-26_-_RisTechy.com.apk/file" class="download-btn">
+                            <i class="fas fa-download"></i> Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: PPSSPP GOLD -->
+            <div class="game-card" data-category="free" data-game="PPSSPP GOLD">
+                <div class="game-badge badge-free">Free</div>
+                <img src="PPSSPP GOLD.jpg" alt="PPSSPP GOLD" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">PPSSPP GOLD</h3>
+                    <p class="game-description">Play your favorite PSP games on your device with PPSSPP Gold, the premium PSP emulator offering enhanced graphics and smooth performance.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.mediafire.com/file/o814xggqmcdh5g4/ppsspp-gold_1.19.3-RisTechy.com.apk/file?dkey=l1ajqjox1sc&r=776" class="download-btn">
+                            <i class="fas fa-download"></i> Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: TRUCKERS OF EUROPE 3 -->
+            <div class="game-card" data-category="free" data-game="Truckers Of Europe 3">
+                <div class="game-badge badge-free">Free</div>
+                <img src="Truckers Of Europe 3.jpg" alt="Truckers Of Europe 3" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Truckers Of Europe 3</h3>
+                    <p class="game-description">Drive across Europe delivering cargo in Truckers of Europe 3, featuring realistic trucks, maps, and challenging missions.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://files.modyolo.com/Truckers%20of%20Europe%203/Truckers_of_Europe_3_%20v0.7.41%20_MOD.apk" class="download-btn">
+                            <i class="fas fa-download"></i> Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: FOOTBALL MANAGER -->
+            <div class="game-card" data-category="free" data-game="Football Manager">
+                <div class="game-badge badge-free">Free</div>
+                <img src="Football Manager.jpg" alt="Football Manager" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Football Manager 2026</h3>
+                    <p class="game-description">Manage your football team and lead them to success with strategic decisions in Football Manager.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.mediafire.com/file/ml1472u98ptgqy7/FM_2026_Mobile_Mod_26.2.0_-_RisTechy.com.apk/file?dkey=ajk74dqeqwh&r=553" class="download-btn">
+                            <i class="fas fa-download"></i> Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: MOTO GP -->
+            <div class="game-card" data-category="free" data-game="MotoGP">
+                <div class="game-badge badge-free">Free</div>
+                <img src="MotoGP.jpg" alt="MotoGP" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">MotoGP</h3>
+                    <p class="game-description">Race at high speeds and compete in thrilling MotoGP races with realistic graphics and challenging tracks.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://downloads.romspedia.com/roms/MotoGP%2008%20%28USA%29.zip" class="download-btn">
+                            <i class="fas fa-download"></i> Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: Aethersx2 Ps2 Emulator For Android -->
+            <div class="game-card" data-category="free" data-game="AetherSX2 PS2 Emulator">
+                <div class="game-badge badge-free">Free</div>
+                <img src="AetherSX2 PS2 Emulator.jpg" alt="AetherSX2 PS2 Emulator" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">AetherSX2 PS2 Emulator For Android</h3>
+                    <p class="game-description">Play your favorite PS2 games on Android with AetherSX2, a powerful and smooth PS2 emulator.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.mediafire.com/file/7o8ypzk00uyd4u5/Aethersx2-v1-5-4248_-_RisTechy.com.apk/file" class="download-btn">
+                            <i class="fas fa-download"></i> Download Apk
+                        </a>
+                        
+                        <a href="https://archive.org/download/scph10000_202311/scph10000.bin" class="download-btn">
+                            <i class="fas fa-download"></i> Download BIOS File
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: FIFA 16 MOD EFOOTBALL -->
+            <div class="game-card" data-category="premium" data-game="FIFA 16 MOD EFOOTBALL">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="Untitled-Project-35-1024x576.jpg.webp" alt="FIFA 16 MOD EFOOTBALL" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">FIFA 16 MOD EFOOTBALL</h3>
+                    <p class="game-description">Football.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments19.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: FIFA 16 MOD EFOOTBALL 2026 -->
+            <div class="game-card" data-category="free" data-game="FIFA 16 MOD EFOOTBALL 2026">
+                <div class="game-badge badge-free">Free</div>
+                <img src="Untitled-Project-9-6-1024x576.jpg.webp" alt="FIFA 16 MOD EFOOTBALL 2026" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">FIFA 16 MOD EFOOTBALL 2026 (PES 26)</h3>
+                    <p class="game-description">FOOTBALL.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.eslamgaming.com/link-is-being-prepared??&&url=_https://www.mediafire.com/file/99dzdo1959d6w86/UT-16_crazpigs.rar/file" class="download-btn">
+                            <i class="fas fa-download"></i> Download Apk & OBB
+                        </a>
+                        
+                        <a href="https://www.eslamgaming.com/link-is-being-prepared??&&url=_https://www.mediafire.com/file/7v8g6r0igddh2hh/data.zip/file" class="download-btn">
+                            <i class="fas fa-download"></i> Download Data
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: DLS 2026(UNLIMITED MONEY)-->
+            <div class="game-card" data-category="premium" data-game="DLS 2026(UNLIMITED MONEY)">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="dls.jpeg" alt="DLS" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">DLS 2026(UNLIMITED MONEY)</h3>
+                    <p class="game-description">FOOTBALL GAME.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments20.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: FIFA 16 MOD EAFC26 -->
+            <div class="game-card" data-category="free" data-game="FIFA 16 MOD EAFC26">
+                <div class="game-badge badge-free">Free</div>
+                <img src="Untitled-Project-11-6-1024x576.jpg.webp" alt="FIFA 16 MOD EAFC26" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">FIFA 16 MOD EAFC26</h3>
+                    <p class="game-description">FOOTBALL.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.mediafire.com/file/w4gemj9sdq5ywr6/DFL+2025+Mod+-+RisTechy.com.apk/file?dkey=zbfzd9hi0hy&r=1402" class="download-btn">
+                            <i class="fas fa-download"></i> Download Apk
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/gg7zla30q4fgloh/LATEST_EAFC_26_THEME_DATA_FILE_FULL_MANAGERTOURNAMENTS_MODEBY_ALPHATRIX_GAMING.zip/file?dkey=796sxnjcmet&r=1842" class="download-btn">
+                            <i class="fas fa-download"></i> Download DATA
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/r7qqwy5h2gdf2pt/OBB+FIFA+16+MOBILE.zip/file?dkey=rgc39dc2p9w&r=1024" class="download-btn">
+                            <i class="fas fa-download"></i> Download Obb
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/j9dkph9cbfv68qr/FIFA_16_ENGLISH_COMMENTARY_BY_M_PRO_GAMING.zip/file?dkey=g3bu59n596f&r=1307" class="download-btn">
+                            <i class="fas fa-download"></i> Download commentary
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: FIFA 16 MOD FIFA 25(UFL) -->
+            <div class="game-card" data-category="free" data-game="FIFA 16 MOD FIFA 25(UFL)">
+                <div class="game-badge badge-free">Free</div>
+                <img src="Untitled-Project-29-780x440.jpg.webp" alt="FIFA 16 MOD FIFA 25(UFL)" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">FIFA 16 MOD FIFA 25(UFL)</h3>
+                    <p class="game-description">FOOTBALL.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.mediafire.com/file/2ub033dieuo3j4q/EAFC25+APK.zip/file?dkey=su8sbjmcmp2&r=750" class="download-btn">
+                            <i class="fas fa-download"></i> Download APK
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/sstda9vn085sao4/OBB_FIFA_23_ULTIMATE_TEAM_BY_AIV_RIEF.7z/file?dkey=7vnykkjx26f&r=1704" class="download-btn">
+                            <i class="fas fa-download"></i> Download OBB
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/gapqg6y0dhwxbw8/UFL_25_ANDROID_OFFLINE_YT_Gunggaming_15.7z/file?dkey=whg3hp0hhp2&r=958" class="download-btn">
+                            <i class="fas fa-download"></i> Download Data UFL
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/j9dkph9cbfv68qr/FIFA_16_ENGLISH_COMMENTARY_BY_M_PRO_GAMING.zip/file?dkey=g3bu59n596f&r=1307" class="download-btn">
+                            <i class="fas fa-download"></i> Download commentary
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: GRAND THEFT AUTO V.3.1 -->
+            <div class="game-card" data-category="premium" data-game="GRAND THEFT AUTO V.3.1">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="Grand_Theft_Auto V.jpg" alt="gtav" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">GRAND THEFT AUTO V.3.1</h3>
+                    <p class="game-description">Open World.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments21.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: FC26 OFFLINE GAME -->
+            <div class="game-card" data-category="free" data-game="FC26 OFFLINE GAME">
+                <div class="game-badge badge-free">Free</div>
+                <img src="fc.jpeg" alt="FC26 OFFLINE GAME" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">FC26 OFFLINE GAME</h3>
+                    <p class="game-description">FOOTBALL.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.mediafire.com/file/e97hxhejcmo1gx1/EAFC_24.apk/file?dkey=vfj6nv6ezwf&r=1705" class="download-btn">
+                            <i class="fas fa-download"></i> Download Apk
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/r7qqwy5h2gdf2pt/OBB_FIFA_16_MOBILE.zip/file?dkey=tbbxes7prdl&r=1381" class="download-btn">
+                            <i class="fas fa-download"></i> Download Obb
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/xqagsk9cu31vqay/EA_FC_26_V1_BY_ROBER_FL.zip/file?dkey=ve4y0lxti9f&r=1468" class="download-btn">
+                            <i class="fas fa-download"></i> Download Data 
+                        </a>
+                    </div>
+                </div>
+            </div>
+             
+            <!-- Game Card: MK(MORTAL KOMBAT)PSP -->
+            <div class="game-card" data-category="premium" data-game="MK(MORTAL KOMBAT)PSP">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="mk.jpeg" alt="Mortal Kombat" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">MK(MORTAL KOMBAT)PSP</h3>
+                    <p class="game-description">ACTION</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments22.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: MORTAL KOMBAT(AETHERSX2)EMULATOR -->
+            <div class="game-card" data-category="premium" data-game="MORTAL KOMBAT(AETHERSX2)EMULATOR">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="Mortal kombat .jpeg" alt="MORTAL KOMBAR" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">MORTAL KOMBAT(AETHERSX2)EMULATOR</h3>
+                    <p class="game-description">ACTION</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments23.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game Card: FTS 26 -->
+            <div class="game-card" data-category="premium" data-game="FTS 26">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="Untitled-Project-10-14-1024x576.jpg.webp" alt="FTS 26" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">FTS 26</h3>
+                    <p class="game-description">FOOTBALL.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments24.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+             
+            <!-- Game Card: Call Of Duty:Strike Team -->
+            <div class="game-card" data-category="premium" data-game="Call Of Duty:Strike Team">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="lone.jpg" alt="Call Of Duty:Strike Team" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Call Of Duty:Strike Team</h3>
+                    <p class="game-description">Action game with high quality and graphics</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments25.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now 
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: FC26 MOD 2016 -->
+            <div class="game-card" data-category="free" data-game="FC26 MOD 2016">
+                <div class="game-badge badge-free">Free</div>
+                <img src="cdm.jpg" alt="FC26 MOD 2016" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">FC26 MOD 2016</h3>
+                    <p class="game-description">Football</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.mediafire.com/file/c9bnwpw948kd8k7/FC_26_.apk/file?dkey=wsy9dnrfzma&r=552" class="download-btn">
+                            <i class="fas fa-download"></i> Download Apk
+                        </a>
+                        
+                        <a href="https://download2430.mediafire.com/le73z9dvhmagEpTy8P9uSgssh_oJ3iX4FnHNrypfQ1zuaeLsTKfCt73W4ID9-rbTti7gOGLPnu0267Y0g7ooVE_4PUBryIvQXJAT5mhORZUcccKIbODwwI9RCccrRfp4P5TU7zaE8crtmi4Q-mhhfadWkJO7BK1jXdR-6c0pEfEECw/4vymq96vdasdu3e/SAVE+MANAGER+MODE+FC26+DATA+FILE+TOURNAMENTS+MODE+BY+ALPHATRIX+GAMING.zip" class="download-btn">
+                            <i class="fas fa-download"></i> Download Data
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/1whr45n94yurh6h/OBB_BY_THORK_9INE_.zip/file?dkey=mvuyrvyas3w&r=1797" class="download-btn">
+                            <i class="fas fa-download"></i> Download OBB
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: Once a Human -->
+            <div class="game-card" data-category="premium" data-game="Once a Human">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="once a Human .jpg" alt="Once a Human" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Once a Human</h3>
+                    <p class="game-description">Action Game</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments26.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now 
+                        </a>
+                    </div>
+                </div>
+            </div>
+       
+            <!-- Game Card: battleops -->
+            <div class="game-card" data-category="premium" data-game="battleops">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="battleops .jpeg" alt="battleops" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Battleops</h3>
+                    <p class="game-description">Action</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments27.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now 
+                        </a>
+                    </div>
+                </div>
+            </div>
+       
+            <!-- Game Card: EFOOTBALL 2026 -->
+            <div class="game-card" data-category="premium" data-game="EFOOTBALL 2026">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="efootball .png" alt="Efootball" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">EFOOTBALL 2026</h3>
+                    <p class="game-description">THE best football game of all time</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments28.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div> 
+            
+            <!-- Game Card: FIFA 2025 MOD 14 -->
+            <div class="game-card" data-category="free" data-game="FIFA 2025 MOD 14">
+                <div class="game-badge badge-free">Free</div>
+                <img src="FIFA-2025-Mod-14-apk-obb-data-offline-ra-sports-fc-1536x660.jpg" alt="FIFA 2025 MOD 14" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">FIFA 2025 MOD 14</h3>
+                    <p class="game-description">THE best football game of all time</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.mediafire.com/file/i4acffstnivc1tq/FIFA_EA_FC_MOD_25_-_RisTechy.com.apk/file?dkey=p945y2tdynm&r=1118" class="download-btn">
+                            <i class="fas fa-download"></i> Download Apk 
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/cap139vksjjjh42/Data_FIFA_2025_Mod_14_Update_Jn_-__RisTechy.com.rar/file?dkey=ylxsxlpualr&r=1248" class="download-btn">
+                            <i class="fas fa-download"></i> Download Data
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/uy177773quolqup/Obb_FIFA_2025_Mod_14_Update_Jn_-_RisTechy.com.rar/file?dkey=bbfl3is4atr&r=1060" class="download-btn">
+                            <i class="fas fa-download"></i> Download OBB
+                        </a>
+                    </div>
+                </div>
+            </div> 
+
+            <!-- Game Card: RACE MAX PRO -->
+            <div class="game-card" data-category="free" data-game="RACE MAX PRO">
+                <div class="game-badge badge-free">Free</div>
+                <img src="race pro.jpeg" alt="RACE MAX PRO" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">RACE MAX PRO</h3>
+                    <p class="game-description">THE best RACING GAME</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://dl.apkvision.org/race-max-pro/race-max-pro-mod_2.9.3-apkvision.apk" class="download-btn">
+                            <i class="fas fa-download"></i> Download Apk 
+                        </a>
+                    </div>
+                </div>
+            </div> 
+
+            <!-- Game Card: RALLY RACING PRO -->
+            <div class="game-card" data-category="premium" data-game="RALLY RACING PRO">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="rally .jpeg" alt="RALLY RACING PRO" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">RALLY RACING PRO</h3>
+                    <p class="game-description">THE best football game of all time</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments29.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game Card: BATMAN -->
+            <div class="game-card" data-category="premium" data-game="BATMAN">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="batman .jpeg" alt="BATMAN" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">BATMAN</h3>
+                    <p class="game-description">Action</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments30.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now 
+                        </a>
+                    </div>
+                </div>
+            </div>
+       
+            <!-- Game Card: SPIDERMAN -->
+            <div class="game-card" data-category="premium" data-game="SPIDERMAN">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="dar.jpeg" alt="SPIDERMAN" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">SPIDERMAN</h3>
+                    <p class="game-description">Action</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments31.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now 
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: RESIDENT EVIL MOD APK -->
+            <div class="game-card" data-category="premium" data-game="RESIDENT EVIL MOD APK">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="evil.jpeg" alt="RESIDENT EVIL MOD APK" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">RESIDENT EVIL MOD APK</h3>
+                    <p class="game-description">THE best ACTION GAME</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments32.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now 
+                        </a>
+                    </div>
+                </div>
+            </div> 
+
+            <!-- Game Card: DEAD EFFECT -->
+            <div class="game-card" data-category="premium" data-game="DEAD EFFECT">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="dead effect.jpeg" alt="DEAD EFFECT" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">DEAD EFFECT</h3>
+                    <p class="game-description">THE best ACTION GAME and story game</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments33.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now 
+                        </a>
+                    </div>
+                </div>
+            </div> 
+       
+            <!-- Game Card: Fc26 -->
+            <div class="game-card" data-category="free" data-game="Fc26">
+                <div class="game-badge badge-free">Free</div>
+                <img src="wolf gang.jpg" alt="Fc26" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Fc26</h3>
+                    <p class="game-description">THE best football game of all time</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.mediafire.com/file/lvwxo5nwccxe8yr/APK+FC26%E2%84%A2+ANDROID+OFFLINE+BY+ALPHATRIX+GAMING.zip/file?dkey=rbyt52anm9g&r=1504" class="download-btn">
+                            <i class="fas fa-download"></i> Download Apk 
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/ycxkoqne89x35zh/FIFA_16_OBB_BY_ALPHATRIX_GAMING.zip/file?dkey=mf0w05f23vz&r=1010" class="download-btn">
+                            <i class="fas fa-download"></i> Download OBB
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/k5npz77stjwiccm/NEW+FC26+THEME+LATEST+DB+FIFA+16+MOD+FULL+TOURNAMENTS+BY+ALPHATRIX+GAMING.zip/file?dkey=4l2egvww80u&r=1575" class="download-btn">
+                            <i class="fas fa-download"></i> Download DATA
+                        </a>
+                    </div>
+                </div>
+            </div> 
+
+            <!-- Game Card: Hitman Sniper -->
+            <div class="game-card" data-category="premium" data-game="Hitman Sniper">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="hitman .jpeg" alt="Hitman Sniper" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Hitman Sniper</h3>
+                    <p class="game-description">Action</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments34.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now 
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game Card: Truck Simulator -->
+            <div class="game-card" data-category="premium" data-game="Truck Simulator">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="truck.jpeg" alt="Truck Simulator" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Truck Simulator</h3>
+                    <p class="game-description">Realistic truck driving simulation</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments35.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now 
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game Card: WWE PATCH 2026 PSP -->
+            <div class="game-card" data-category="free" data-game="WWE PATCH 2026 PSP">
+                <div class="game-badge badge-free">Free</div>
+                <img src="wwe patch.jpeg" alt="WWE PATCH 2026" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">WWE PATCH 2026</h3>
+                    <p class="game-description">Latest WWE patch for PSP with updated roster</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.mediafire.com/file/cnojs7lrthl1ukb/MY_NEW_WWE_2K26_PATCH_MOD_BY_LETSKI_MODDER.zip/file?dkey=wl4jd7u9ewl&r=67" class="download-btn">
+                            <i class="fas fa-download"></i> Download Apk 
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Card: UFL MOBILE -->
+            <div class="game-card" data-category="free" data-game="UFL MOBILE">
+                <div class="game-badge badge-free">Free</div>
+                <img src="us.jpeg" alt="UFL MOBILE" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">UFL MOBILE</h3>
+                    <p class="game-description">Realistic game of all time with all kits💥💥</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://d.apkpure.com/b/XAPK/com.xten.ufl?version=latest" class="download-btn">
+                            <i class="fas fa-download"></i> Download Apk 
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game Card: Takashi -->
+            <div class="game-card" data-category="free" data-game="Takashi">
+                <div class="game-badge badge-free">Free</div>
+                <img src="takashi.jpeg" alt="Takashi" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Takashi</h3>
+                    <p class="game-description">The best action/Adventure game of all time</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://dl.apkvision.org/takashi-ninja-warrior/takashi-ninja-warrior-v2.102c.xapk" class="download-btn">
+                            <i class="fas fa-download"></i> Download Apk 
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game Card: Call of duty: warzone -->
+            <div class="game-card" data-category="premium" data-game="Call of duty: warzone">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="warzone.jpeg" alt="Call of duty: warzone" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Call of duty: warzone</h3>
+                    <p class="game-description">The best action/Adventure game of all time</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 6,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments36.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now 
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NEW GAME CARD 1: FTS -->
+            <div class="game-card" data-category="premium" data-game="FTS">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="aii.jpg" alt="FTS" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">FTS</h3>
+                    <p class="game-description">Best first touch Game of all time.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.8</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments37.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now 
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NEW GAME CARD 2: Walking Dead -->
+            <div class="game-card" data-category="premium" data-game="Walking Dead">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="images (8).jpeg" alt="Walking Dead" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Walking Dead</h3>
+                    <p class="game-description">game with hing graphics amd story.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.7</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments38.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i>BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+         <!-- NEW GAME CARD 2: Real Driving -->
+            <div class="game-card" data-category="premium" data-game="Real Driving">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="drive.jpg" alt="Real Driving" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Real Driving</h3>
+                    <p class="game-description">game with hing graphics amd story.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.7</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments39.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+         <!-- NEW GAME CARD 2: Red Dead Redemption -->
+            <div class="game-card" data-category="premium" data-game="Red Dead Redemption">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="woow.jpeg" alt="Red Dead Redemption" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Red Dead Redemption</h3>
+                    <p class="game-description">Open World game with hing graphics amd story.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.7</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments40.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+          <!-- Game Card: DRIVE REAL TRUCK SIMULATOR -->
+            <div class="game-card" data-category="premium" data-game="Drive Real Truck Simulator">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="Drive Real Truck Simulator.jpg" alt="Drive Real Truck Simulator" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Drive Real Truck Simulator</h3>
+                    <p class="game-description">Drive trucks, complete missions, and navigate realistic roads.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments41.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+          <!-- Game Card: TRUCK SIMULATOR USA REVOLUTION -->
+            <div class="game-card" data-category="premium" data-game="Truck Simulator Usa Revolution">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="Truck Simulator Usa Revolution.jpg" alt="Truck Simulator Usa Revolution" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Truck Simulator Usa Revolution</h3>
+                    <p class="game-description">Drive trucks across America, explore cities, and complete delivery missions.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments42.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+          <!-- Game Card: TDZ Pro -->
+            <div class="game-card" data-category="premium" data-game="TDZ Pro">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="TDZ Pro.jpg" alt="TDZ Pro" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">TDZ Pro</h3>
+                    <p class="game-description">Experience realistic truck driving with advanced controls, challenging missions, and immersive environments.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments43.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+          <!-- Game Card: GOD HAND -->
+            <div class="game-card" data-category="premium" data-game="GOD HAND">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="GOD HAND.jpg" alt="GOD HAND" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">GOD HAND</h3>
+                    <p class="game-description">A thrilling action game where you control a powerful hero battling enemies with epic moves and combos.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments44.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+          <!-- Game Card: DEAD EFFECT 2 -->
+            <div class="game-card" data-category="premium" data-game="Dead Effect 2">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="Dead Effect 2.jpg" alt="Dead Effect 2" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Dead Effect 2</h3>
+                    <p class="game-description">A sci-fi horror FPS where you fight deadly zombies, upgrade weapons, and survive on a space station.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments45.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+          <!-- Game Card: SILENT HILL 3 -->
+            <div class="game-card" data-category="premium" data-game="Silent Hill 3">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="Silent Hill 3.jpg" alt="Silent Hill 3" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Silent Hill 3</h3>
+                    <p class="game-description">A chilling horror game where you uncover dark secrets while navigating a haunted town filled with terrifying creatures.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments46.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+          <!-- Game Card: BLACK MAMBA WUKONG -->
+            <div class="game-card" data-category="premium" data-game="Black Mamba Wukong">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="Black Mamba Wukong.jpg" alt="Black Mamba Wukong" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Black Mamba Wukong</h3>
+                    <p class="game-description">An action-packed adventure where you control a powerful warrior in a world filled with fierce battles and mythical creatures.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                       <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments47.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+          <!-- Game Card: MAD MAX -->
+            <div class="game-card" data-category="premium" data-game="Mad Max">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="Mad Max.jpg" alt="Mad Max" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Mad Max</h3>
+                    <p class="game-description">An open-world action game set in a post-apocalyptic wasteland where you fight, race, and survive in a brutal environment.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments48.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+          <!-- Game Card: GTA V -->
+            <div class="game-card" data-category="premium" data-game="GTA V">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="GTA V.jpg" alt="GTA V" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">GTA V</h3>
+                    <p class="game-description">An action-packed open-world game where you live the life of criminals, engage in heists, and explore a massive city.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 8,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments49.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+          <!-- Game Card: ETS2 TANZANIA PC MOD -->
+            <div class="game-card" data-category="premium" data-game="ETS2 TANZANIA MOD FOR PC">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="ETS2 TANZANIA PC.jpg" alt="ETS2 TANZANIA PC" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">ETS2 TANZANIA MOD FOR PC</h3>
+                    <p class="game-description">Experience the thrill of driving iconic Tanzanian buses across the country's roads, picking up passengers and completing routes.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 20,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments50.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+          <!-- Game Card: DEAD OR ALIVE PARADISE EUROPE -->
+            <div class="game-card" data-category="premium" data-game="Dead Or Alive Paradise Europe">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="Dead Or Alive.jpg" alt="Dead Or Alive" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Dead Or Alive Paradise Europe</h3>
+                    <p class="game-description">A beach resort game with mini-games and Dead or Alive characters.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments51.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+          <!-- Game Card: EFOOTBALL PES TZ 2026 -->
+            <div class="game-card" data-category="premium" data-game="Efootball Pes Tz 2026">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="Efootball Pes Tz 2026.jpg" alt="Efootball Pes Tz 2026" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Efootball Pes Tz 2026</h3>
+                    <p class="game-description">The ultimate football game with local teams, realistic gameplay, and exciting matches in Tanzania.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments52.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+          <!-- Game Card: ETS2 MALEO TZ v3.7.1 -->
+            <div class="game-card" data-category="premium" data-game="ETS2 MALEO TZ MOD v3.7.1">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="ETS2 MALEO TZ MOD v3.7.1.jpg" alt="ETS2 MALEO TZ MOD v3.7.1" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">ETS2 MALEO TZ MOD v3.7.1</h3>
+                    <p class="game-description">Enhance your Euro Truck Simulator 2 experience with realistic Tanzanian roads, vehicles, and scenery</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 5,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments53.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+          <!-- Game Card: BUS MALEO TZ MOD v4.3.2 -->
+            <div class="game-card" data-category="premium" data-game="BUS MALEO TZ MOD v4.3.2">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="BUS MALEO TZ MOD v4.3.2.jpg" alt="BUS MALEO TZ MOD v4.3.2" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">BUS MALEO TZ MOD v4.3.2</h3>
+                    <p class="game-description">A mod for realistic Tanzanian bus driving, featuring authentic buses and routes across Tanzania.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 6,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments54.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+          <!-- Game Card: BUS MALEO TZ MOD v4.3.3 -->
+            <div class="game-card" data-category="premium" data-game="BUS MALEO TZ MOD v4.3.3">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="BUS MALEO TZ MOD v4.3.3.jpg" alt="BUS MALEO TZ MOD v4.3.3" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">BUS MALEO TZ MOD v4.3.3</h3>
+                    <p class="game-description">Experience realistic Tanzanian bus driving with improved buses, routes, and detailed environments.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 7,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments55.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+          <!-- Game Card: BUS MALEO TZ MOD v4.3.4 -->
+            <div class="game-card" data-category="premium" data-game="BUS MALEO TZ MOD v4.3.4">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="BUS MALEO TZ MOD v4.3.4.jpg" alt="BUS MALEO TZ MOD v4.3.4" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">BUS MALEO TZ MOD v4.3.4</h3>
+                    <p class="game-description">Enjoy enhanced bus driving in Tanzania with new features, improved routes, and realistic bus models.</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 8,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments56.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+          <!-- Game Card: WORLD BUS TZ MOD -->
+            <div class="game-card" data-category="premium" data-game="World Bus Tz Mod">
+                <div class="game-badge badge-premium">PREMIUM</div>
+                <img src="World Bus Tz Mod.jpg" alt="World Bus Tz Mod" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">World Bus Tz Mod</h3>
+                    <p class="game-description">Real Tanzania Bus Mod Simulator With All Map Of Tanzania</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.9</span>
+                        </div>
+                        <div class="game-price">
+                <span class="price">TZS 9,000/=</span>
+            </div>
+        </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://true-alpha-payments57.vercel.app" class="download-btn">
+                            <i class="fas fa-download"></i> BUY & Download Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        
+          <!-- Game Card: Fc26 -->
+            <div class="game-card" data-category="free" data-game="Fc26">
+                <div class="game-badge badge-free">Free</div>
+                <img src="meeee.jpg" alt="Fc26" class="game-image">
+                <div class="game-info">
+                    <h3 class="game-title">Fc26 Mod Fifa 16</h3>
+                    <p class="game-description">THE best football game of all time</p>
+                    
+                    <div class="game-meta">
+                        <div class="game-rating">
+                            <i class="fas fa-star"></i>
+                            <span>4.6</span>
+                        </div>
+                        <div></div>
+                    </div>
+                    
+                    <div class="download-buttons-container">
+                        <a href="https://www.mediafire.com/file/p1is9baz05i0xl4/DFL_2026_Mod_Android_13_-_16_-_RisTechy.com.apk/file?dkey=x8mrvqznpxl&r=112" class="download-btn">
+                            <i class="fas fa-download"></i> Download Apk 
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/myt46inwwr9fnr4/Obb_FIFA_2016_Ultimate_Team_-_RisTechy.com.rar/file?dkey=cesmtfhvz7c&r=1740" class="download-btn">
+                            <i class="fas fa-download"></i> Download OBB
+                        </a>
+                        
+                        <a href="https://www.mediafire.com/file/myt46inwwr9fnr4/Obb_FIFA_2016_Ultimate_Team_-_RisTechy.com.rar/file?dkey=cesmtfhvz7c&r=1740" class="download-btn">
+                            <i class="fas fa-download"></i> Download DATA
+                        </a>
+                    </div>
+                </div>
+            </div> 
+    </section>
+   
+    <!-- About Us Page -->
+    <section class="about-page" id="about-page">
+        <h2>About TrueAlpha Play Zone</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Our Mission</h3>
+                <p>TrueAlpha Play Zone is dedicated to providing gamers with the best selection of free-to-play and premium games. We believe that everyone should have access to high-quality gaming experiences. Our platform curates the most exciting and engaging games from developers around the world.</p>
+            </div>
+            
+            <div class="about-text">
+                <h3>Our Story</h3>
+                <p>Founded in 2026 by a group of passionate gamers, TrueAlpha Play Zone started as a small community project. Today, we've grown into a platform serving millions of gamers worldwide. Our team works tirelessly to discover and showcase the best games across all genres.</p>
+            </div>
+            
+            <div class="about-text">
+                <h3>Meet Our Team</h3>
+                <div class="team-members">
+                    <div class="team-member">
+                        <img src="TrueAlpha.jpg" alt="TrueAlpha">
+                        <h4>True Alpha</h4>
+                        <p>Founder & CEO</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="Dijjah.jpg" alt="Team Member">
+                        <h4>Dijjah Alpha</h4>
+                        <p>Head of Content</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="AlphaWolfix.jpg" alt="Team Member">
+                        <h4>Alpha Wolfix</h4>
+                        <p>Lead Developer</p>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#" class="back-btn" id="back-home">Back to Home</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://whatsapp.com/channel/0029VbBWNXqFcovycqk4WG2F" title="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#">Home</a>
+                <a href="#games-section">Games</a>
+                <a href="#about-page">About Us</a>
+                <a href="tel:0651675994">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            
+            <div class="help-note">
+                <i class="fas fa-info-circle"></i>
+                NOTE: KAMA UME DOWNLOAD GAME ALAFU LINAHITAJI PIN TUTAFUTE KWENYE NAMBA 0651675994 Au BONYEZA HELP CENTER
+            </div>
+            <p class="copyright">© 2026 TrueAlpha Play Zone. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Game Assistant Panel -->
+    <div class="game-assistant" id="game-assistant">
+        <div class="assistant-header">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="assistant-avatar">
+                    🎮
+                </div>
+                <h3><i class="fas fa-robot"></i> Game Assistant</h3>
+            </div>
+            <button class="assistant-btn" id="close-assistant">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="assistant-message" id="assistant-message">
+            Hello! I'm your game assistant. I can help you find the perfect game based on your preferences!
+        </div>
+        
+        <div id="assistant-recommendations">
+            <h4 style="color: #6c5ce7; margin-bottom: 10px; font-size: 1rem;">
+                <i class="fas fa-gamepad"></i> Top Recommendations:
+            </h4>
+            <div class="recommendation-item" data-game="GTA San Andreas">
+                <strong>GTA San Andreas</strong>
+                <p style="font-size: 0.8rem; color: #b0b0b0; margin-top: 5px;">
+                    Best open-world experience with amazing graphics
+                </p>
+            </div>
+            <div class="recommendation-item" data-game="UFL">
+                <strong>UFL Football</strong>
+                <p style="font-size: 0.8rem; color: #b0b0b0; margin-top: 5px;">
+                    Most realistic football game available
+                </p>
+            </div>
+            <div class="recommendation-item" data-game="Call Of Duty">
+                <strong>Call Of Duty</strong>
+                <p style="font-size: 0.8rem; color: #b0b0b0; margin-top: 5px;">
+                    High-quality action and challenge
+                </p>
+            </div>
+        </div>
+        
+        <div class="assistant-actions">
+            <button class="assistant-btn" id="recommend-action">
+                <i class="fas fa-star"></i> Get Recommendations
+            </button>
+            <button class="assistant-btn" id="trending-action">
+                <i class="fas fa-fire"></i> Trending Now
+            </button>
+        </div>
+    </div>
+
+    <!-- Floating Controls -->
+    <div class="floating-controls">
+        <button class="control-btn assistant" id="assistant-btn" title="Game Assistant">
+            <i class="fas fa-robot"></i>
+        </button>
+        <button class="control-btn" id="theme-btn" title="Toggle Dark/Light Mode">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="control-btn" id="effects-btn" title="Toggle Effects">
+            <i class="fas fa-magic"></i>
+        </button>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Particles.js Library -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+        // ========== ENHANCED FEATURES ==========
+
+        // 1. Dark/Light Mode Toggle
+        const themeBtn = document.getElementById('theme-btn');
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            const icon = themeBtn.querySelector('i');
+            if (document.body.classList.contains('light-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                showNotification('Light mode activated! ☀️');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                showNotification('Dark mode activated! 🌙');
+            }
+        });
+
+        // 2. Effects Toggle
+        const effectsBtn = document.getElementById('effects-btn');
+        let effectsEnabled = true;
+        effectsBtn.addEventListener('click', () => {
+            effectsEnabled = !effectsEnabled;
+            if (effectsEnabled) {
+                particlesJS.load('particles-js', '', particlesConfig);
+                createFloatingIcons();
+                effectsBtn.style.background = 'linear-gradient(135deg, #6c5ce7, #a29bfe)';
+                showNotification('Effects enabled! ✨');
+            } else {
+                document.getElementById('particles-js').innerHTML = '';
+                document.getElementById('floating-icons').innerHTML = '';
+                effectsBtn.style.background = '#2d3447';
+                showNotification('Effects disabled');
+            }
+        });
+
+        // 3. Particles.js Background
+        const particlesConfig = {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#6c5ce7" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#6c5ce7",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" }
+                }
+            }
+        };
+        particlesJS.load('particles-js', '', particlesConfig);
+
+        // 4. Floating Game Icons
+        function createFloatingIcons() {
+            const iconsContainer = document.getElementById('floating-icons');
+            const gameIcons = ['🎮', '🕹️', '👾', '🎯', '⚔️', '🏆', '🎪', '🎲'];
+            
+            for (let i = 0; i < 20; i++) {
+                const icon = document.createElement('div');
+                icon.className = 'floating-icon';
+                icon.textContent = gameIcons[Math.floor(Math.random() * gameIcons.length)];
+                icon.style.left = `${Math.random() * 100}%`;
+                icon.style.animationDuration = `${15 + Math.random() * 20}s`;
+                icon.style.animationDelay = `${Math.random() * 5}s`;
+                icon.style.fontSize = `${16 + Math.random() * 20}px`;
+                icon.style.opacity = `${0.1 + Math.random() * 0.2}`;
+                iconsContainer.appendChild(icon);
+            }
+        }
+
+        createFloatingIcons();
+
+        // 5. XP System
+        let xp = 0;
+        let level = 1;
+        const xpPerLevel = 100;
+        const xpProgress = document.getElementById('xp-progress');
+        const levelText = document.getElementById('level-text');
+
+        function addXP(amount) {
+            xp += amount;
+            if (xp >= xpPerLevel) {
+                level++;
+                xp = xp - xpPerLevel;
+                showNotification(`Level Up! 🎉 You're now level ${level}`);
+                updateLevelBadge();
+            }
+            updateXPBar();
+        }
+
+        function updateXPBar() {
+            const percentage = (xp / xpPerLevel) * 100;
+            xpProgress.style.width = `${percentage}%`;
+        }
+
+        function updateLevelBadge() {
+            levelText.textContent = `Level ${level}`;
+        }
+
+        // Initialize XP
+        setTimeout(() => addXP(20), 1000);
+
+        // 6. Notification System
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // 7. Game Assistant
+        const assistantBtn = document.getElementById('assistant-btn');
+        const gameAssistant = document.getElementById('game-assistant');
+        const closeAssistant = document.getElementById('close-assistant');
+        const recommendAction = document.getElementById('recommend-action');
+        const trendingAction = document.getElementById('trending-action');
+
+        assistantBtn.addEventListener('click', () => {
+            gameAssistant.classList.toggle('show');
+        });
+
+        closeAssistant.addEventListener('click', () => {
+            gameAssistant.classList.remove('show');
+        });
+
+        recommendAction.addEventListener('click', () => {
+            document.querySelector('.assistant-message').textContent = 
+                "Based on your gaming history, I recommend trying GTA San Andreas for open-world action or UFL for sports!";
+            showNotification('Game recommendations updated! 🎮');
+        });
+
+        trendingAction.addEventListener('click', () => {
+            document.querySelector('.assistant-message').textContent = 
+                "Currently trending: GTA San Andreas, UFL Football, and Call Of Duty are our most downloaded games this week!";
+            showNotification('Trending games loaded! 🔥');
+        });
+
+        // 8. Back to Top Button
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 9. Search Functionality
+        const searchButton = document.getElementById('search-button');
+        const gameSearch = document.getElementById('game-search');
+
+        searchButton.addEventListener('click', () => {
+            const searchTerm = gameSearch.value.toLowerCase().trim();
+            if (!searchTerm) {
+                showNotification('Please enter a game name to search!');
+                return;
+            }
+
+            const gameCards = document.querySelectorAll('.game-card');
+            let found = false;
+            
+            gameCards.forEach(card => {
+                const gameName = card.getAttribute('data-game').toLowerCase();
+                if (gameName.includes(searchTerm)) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    card.style.animation = 'pulse 0.5s';
+                    setTimeout(() => {
+                        card.style.animation = '';
+                    }, 500);
+                    found = true;
+                    showNotification(`Found game: ${card.getAttribute('data-game')} 🎯`);
+                }
+            });
+
+            if (!found) {
+                showNotification('No games found matching your search. Try a different term!');
+            }
+        });
+
+        gameSearch.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchButton.click();
+            }
+        });
+
+        // 10. Game Filtering
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const gameCards = document.querySelectorAll('.game-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                gameCards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    if (filter === 'all' || category === filter) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeInUp 0.5s ease forwards';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                showNotification(`Showing ${filter} games`);
+            });
+        });
+
+        // 11. WhatsApp Link Generator
+        const generateLinkBtn = document.getElementById('generate-link');
+        const gameSelector = document.getElementById('game-selector');
+        const generatedLinkContainer = document.getElementById('generated-link-container');
+        const generatedLink = document.getElementById('generated-link');
+        const copyLinkBtn = document.getElementById('copy-link');
+        const shareWhatsappBtn = document.getElementById('share-whatsapp');
+        const messageContent = document.getElementById('message-content');
+        const messagePreview = document.getElementById('whatsapp-message-preview');
+
+        generateLinkBtn.addEventListener('click', () => {
+            const selectedGame = gameSelector.value;
+            if (!selectedGame) {
+                showNotification('Please select a game first!');
+                return;
+            }
+
+            // Create direct link (simulate hash-based navigation)
+            const directLink = `${window.location.origin}${window.location.pathname}#game-${encodeURIComponent(selectedGame)}`;
+            generatedLink.value = directLink;
+            generatedLinkContainer.style.display = 'block';
+            
+            // Create WhatsApp message preview
+            const whatsappMessage = `🎮 *${selectedGame}* 🎮
+
+Check out this awesome game from TrueAlpha Play Zone!
+
+Download Link: ${directLink}
+
+Features:
+✅ High-quality graphics
+✅ Smooth gameplay
+✅ Free to download
+✅ Regular updates
+
+Download now and start playing! 🚀
+
+#TrueAlpha Play Zone #${selectedGame.replace(/\s+/g, '')} #Gaming`;
+
+            messageContent.textContent = whatsappMessage;
+            messagePreview.style.display = 'block';
+            
+            showNotification(`Link generated for ${selectedGame}! ✅`);
+        });
+
+        copyLinkBtn.addEventListener('click', () => {
+            generatedLink.select();
+            document.execCommand('copy');
+            showNotification('Link copied to clipboard! 📋');
+        });
+
+        shareWhatsappBtn.addEventListener('click', () => {
+            const gameName = gameSelector.value;
+            const encodedMessage = encodeURIComponent(`Check out ${gameName} on TrueAlpha Play Zone! 🎮\n\nDownload Link: ${generatedLink.value}\n\n#TrueAlpha Play Zone`);
+            window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+        });
+
+        // 12. Home/About Navigation
+        const homeLink = document.getElementById('home-link');
+        const aboutLink = document.getElementById('about-link');
+        const aboutPage = document.getElementById('about-page');
+        const backHome = document.getElementById('back-home');
+        const gamesSection = document.getElementById('games-section');
+
+        homeLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            aboutPage.style.display = 'none';
+            gamesSection.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        aboutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            gamesSection.style.display = 'none';
+            aboutPage.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        backHome.addEventListener('click', (e) => {
+            e.preventDefault();
+            aboutPage.style.display = 'none';
+            gamesSection.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 13. Trending Slider Animation
+        const trendingSlider = document.querySelector('.trending-slider');
+        let isPaused = false;
+
+        trendingSlider.addEventListener('mouseenter', () => {
+            isPaused = true;
+            trendingSlider.style.animationPlayState = 'paused';
+        });
+
+        trendingSlider.addEventListener('mouseleave', () => {
+            isPaused = false;
+            trendingSlider.style.animationPlayState = 'running';
+        });
+
+        // 14. Initialize game cards with staggered animations
+        document.querySelectorAll('.game-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // 15. Contact number click
+        document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+            link.addEventListener('click', () => {
+                showNotification('Calling support: 0651675994 📞');
+            });
+        });
+
+        // 16. Download button tracking
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const gameName = this.closest('.game-card')?.getAttribute('data-game') || 'Unknown Game';
+                addXP(5);
+                showNotification(`Starting download for ${gameName}... ⬇️`);
+                
+                // Track in localStorage
+                const downloads = JSON.parse(localStorage.getItem('gameDownloads') || '[]');
+                downloads.push({
+                    game: gameName,
+                    timestamp: new Date().toISOString()
+                });
+                localStorage.setItem('gameDownloads', JSON.stringify(downloads));
+            });
+        });
+
+        // 17. Trending items click
+        document.querySelectorAll('.trending-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const gameName = this.getAttribute('data-game');
+                const targetCard = document.querySelector(`.game-card[data-game="${gameName}"]`);
+                if (targetCard) {
+                    targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    targetCard.style.animation = 'pulse 0.5s';
+                    setTimeout(() => {
+                        targetCard.style.animation = '';
+                    }, 500);
+                    showNotification(`Navigated to ${gameName} 🔥`);
+                }
+            });
+        });
+
+        // 18. Game assistant recommendations
+        document.querySelectorAll('.recommendation-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const gameName = this.getAttribute('data-game');
+                const targetCard = document.querySelector(`.game-card[data-game="${gameName}"]`);
+                if (targetCard) {
+                    gameAssistant.classList.remove('show');
+                    targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    targetCard.style.animation = 'pulse 0.5s';
+                    setTimeout(() => {
+                        targetCard.style.animation = '';
+                    }, 500);
+                    showNotification(`Navigated to ${gameName} from assistant! 🤖`);
+                }
+            });
+        });
+
+        // 19. Initialize with welcome notification
+        setTimeout(() => {
+            showNotification('Welcome to TrueAlpha Play Zone! Browse our collection of 50+ games! 🎮');
+        }, 1500);
+    </script>
+</body>
+</html>
